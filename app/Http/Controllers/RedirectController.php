@@ -16,4 +16,21 @@ class RedirectController extends Controller
         }
     }
 
+    public function redirectToDashboard(){
+        if(Auth::check()){
+            return view('dashboard');
+        }
+        else{
+            return redirect('/');
+        }
+    }
+
+    public function redirectToAdmin(){
+        if(Auth::check()){
+            return view('admin');
+        }
+        else{
+            return redirect('/');
+        }
+    }
 }

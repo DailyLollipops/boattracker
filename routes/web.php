@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [RedirectController::class, 'redirectToHomepage']);
 
+Route::get('/dashboard', [RedirectController::class, 'redirectToDashboard']);
+
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/logout', [LoginController::class, 'logout']);
