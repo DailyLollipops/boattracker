@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [RedirectController::class, 'redirectToHomepage']);
+
+Route::post('/login', [LoginController::class, 'login']);
+
+Route::get('/logout', [LoginController::class, 'logout']);
+
