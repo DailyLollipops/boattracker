@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [RedirectController::class, 'redirectToHomepage']);
 
 Route::get('/dashboard', [RedirectController::class, 'redirectToDashboard']);
+
+Route::get('/admin', [RedirectController::class, 'redirectToAdmin']);
 
 Route::post('/login', [LoginController::class, 'login']);
 
