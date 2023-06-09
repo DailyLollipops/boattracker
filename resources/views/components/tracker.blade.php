@@ -1,4 +1,4 @@
-<div id="tracker-{{ $tracker->id }}" class="tracker grid relative">
+<div id="tracker-{{ $tracker->id }}" data-id="{{ $tracker->id }}" class="tracker grid relative">
     <div class="w-full flex flex-col space-y-3 px-6 py-3 border border-gray-300 rounded-md">
         <div class="flex flex-row justify-between items-center mb-2">
             <p class="font-sans font-semibold text-md text-gray-600">Tracker ID: {{ $tracker->id }}</p>

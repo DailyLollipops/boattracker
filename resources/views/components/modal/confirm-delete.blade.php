@@ -16,5 +16,3 @@
         <input type="text" id="delete-id" name="id" class="hidden">
     </form>
 </div>
-
-<script src="{{ asset('/js/delete.js') }}"></script>
