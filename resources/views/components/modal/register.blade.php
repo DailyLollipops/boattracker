@@ -193,7 +193,7 @@
             <path d="M4 11.875L3.125 11L6.625 7.5L3.125 4L4 3.125L7.5 6.625L11 3.125L11.875 4L8.375 7.5L11.875 11L11 11.875L7.5 8.375L4 11.875Z"/>
         </svg>
     </div>
-    <p class="flex self-center font-sans font-bold text-lg text-[#131B21] ml-9 mb-4 md:self-start">Register Coastguard Account</p>
+    <p class="flex self-center font-sans font-bold text-lg text-[#131B21] ml-9 mb-4 md:self-start">Register Tracker</p>
     <form action="/register/tracker" method="POST" id="register-tracker-form" class="w-full"> 
         @csrf
         <div class="w-full flex flex-col space-y-2 px-9 mb-3">
