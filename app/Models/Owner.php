@@ -9,13 +9,12 @@ class Owner extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'latitude',
-        'longitude',
-        'restricted',
-        'warning'
+        'name',
+        'contact',
+        'barangay'
     ];
 
-    public function boat(){
-        return $this->belongsTo(Boat::class, 'boat_id');
+    public function boats(){
+        return $this->hasMany(Boat::class, 'owner_id');
     }
 }
