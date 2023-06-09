@@ -11,6 +11,7 @@
         </div>
 
         <x-modal.confirm-delete :type="'tracker'"/>
+        <x-modal.update-tracker :boats="$boats"/>
     </div>
 
     <script src="{{ asset('/js/tracker.js') }}"></script>

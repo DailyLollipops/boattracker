@@ -5,6 +5,8 @@ use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DeleteController;
+use App\Http\Controllers\FetchController;
+use App\Http\Controllers\UpdateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +38,7 @@ Route::post('/register/account', [RegisterController::class, 'registerAccount'])
 Route::post('/register/tracker', [RegisterController::class, 'registerTracker']);
 
 Route::post('/delete/tracker', [DeleteController::class, 'deleteTracker']);
+
+Route::get('/get/tracker', [FetchController::class, 'getTracker']);
+
+Route::post('/update/tracker', [UpdateController::class, 'updateTracker']);
