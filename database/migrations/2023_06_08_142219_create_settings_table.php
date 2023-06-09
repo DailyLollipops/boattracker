@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('active_boat');
+            $table->integer('active_boat');
+            $table->timestamps();
         });
     }
 
