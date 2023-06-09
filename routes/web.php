@@ -21,7 +21,7 @@ Route::get('/', [RedirectController::class, 'redirectToHomepage']);
 
 Route::get('/dashboard', [RedirectController::class, 'redirectToDashboard']);
 
-Route::get('/admin', [RedirectController::class, 'redirectToAdmin']);
+Route::get('/trackers', [RedirectController::class, 'redirectToTrackers']);
 
 Route::post('/login', [LoginController::class, 'login']);
 

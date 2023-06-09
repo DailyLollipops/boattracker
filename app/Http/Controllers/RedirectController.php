@@ -24,19 +24,25 @@ class RedirectController extends Controller
             return redirect('/');
         }
         
-        return view('dashboard');
+        $owners = Owner::all();
+        $boats = Boat::all();
+
+        return view('dashboard', [
+            'owners' => $owners,
+            'boats' => $boats
+        ]);
     }
 
-    public function redirectToAdmin(){
+    public function redirectToTrackers(){
         if(!Auth::check()){
             return redirect('/');
         }
-
+        
         $owners = Owner::all();
         $boats = Boat::all();
         $trackers = Tracker::all();
 
-        return view('admin', [
+        return view('trackers', [
             'owners' => $owners,
             'boats' => $boats,
             'trackers' => $trackers

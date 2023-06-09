@@ -5,11 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Admin</title>
+    <title>{{$title}}</title>
 </head>
 <body>
-    <x-navbar/>
-    <p class="font-sans font-semibold text-gray-800 text-2xl mt-10 ml-4 md:ml-10">Trackers</p>
+    <div class="flex flex-row w-full">
+        <x-sidebar/>
+        <div class="flex flex-col w-full">
+            <div class="flex flex-row pl-6 pr-12 py-4 justify-between">
+                <button type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48" class="fill-gray-800 h-6 w-6">
+                        <title>Menu</title>
+                        <path d="M120-240v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/>
+                    </svg>
+                </button>
+                <a href="/logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48" class="fill-gray-800 h-6 w-6">
+                        <title>Logout</title>
+                        <path d="M180-120q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h291v60H180v600h291v60H180Zm486-185-43-43 102-102H375v-60h348L621-612l43-43 176 176-174 174Z"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="flex flex-row p-6 bg-[#F9F9FB]">
+                <p class="font-sans font-normal text-gray-700 text-lg whitespace-pre">Admin  /  <span class="font-bold">{{$title}}</span></p>
+            </div>
+            <div class="flex flex-col px-6 flex-1">
+                @yield('content')
+            </div>
+        </div>
+    </div>
+
+    {{-- <p class="font-sans font-semibold text-gray-800 text-2xl mt-10 ml-4 md:ml-10">Trackers</p>
     <div class="grid grid-cols-1 gap-4 mt-6 px-4 justify-center md:px-10 md:grid-cols-3">
 
         @foreach($trackers as $tracker)
@@ -17,7 +42,7 @@
         @endforeach
 
     </div>
-    <x-modal.confirm-delete/>
+    <x-modal.confirm-delete/> --}}
 
     {{-- Register Boat FAB --}}
     <button id="boat-fab" title="Register Boat" class="fixed z-90 bottom-8 right-9 bg-[#425B71] w-[72px] h-[72px] overflow-clip rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-[#346A90] hover:drop-shadow-2xl">

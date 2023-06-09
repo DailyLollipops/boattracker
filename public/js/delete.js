@@ -6,7 +6,6 @@ const backButton = document.getElementById('delete-false');
 const deleteForm = document.getElementById('delete-form');
 const deletedIdField = document.getElementById('delete-id');
 var activeCardId = -1;
-var type = '';
 
 var confirmDeleteModalOpened = false;
 function openConfirmDeleteModal(){
@@ -29,8 +28,6 @@ for(let i = 0; i < deleteButtons.length; i++){
     deleteButtons[i].addEventListener('click', function(){
         openConfirmDeleteModal();
         activeCardId = parseInt(this.getAttribute('data-id'));
-        type = this.getAttribute('data-type');
-        console.log(type)
     });
 }
 
@@ -44,6 +41,5 @@ window.addEventListener('keydown', function(event){
 
 confirmDeleteButton.addEventListener('click', function(){
     deletedIdField.value = activeCardId;
-    deleteForm.action = '/delete/'+type;
     deleteForm.submit();
 });

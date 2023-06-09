@@ -11,7 +11,7 @@
         <button id="delete-false" class="px-2 py-1.5 font-sans font-medium text-sm text-[#1976D2] hover:text-gray-400">NO</button>
         <button id="delete-true" class="px-2 py-1.5 font-sans font-medium text-sm text-[#1976D2] hover:text-red-400">DELETE</button>
     </div>
-    <form action="" method="POST" id="delete-form">
+    <form action="/delete/{{ $type }}" method="POST" id="delete-form">
         @csrf
         <input type="text" id="delete-id" name="id" class="hidden">
     </form>
