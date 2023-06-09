@@ -8,9 +8,9 @@
     <title>{{$title}}</title>
 </head>
 <body>
-    <div class="flex flex-row w-full">
+    <div class="flex flex-row w-full h-screen">
         <x-sidebar/>
-        <div class="flex flex-col w-full">
+        <div class="flex flex-col w-full h-screen overflow-y-scroll">
             <div class="flex flex-row pl-6 pr-12 py-4 justify-between">
                 <button id="menu" type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48" class="fill-gray-800 h-6 w-6">
