@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blockboxs', function (Blueprint $table) {
+        Schema::create('trackers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->foreignID('boat_id')->constrained()->onDelete('cascade');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blockboxs');
+        Schema::dropIfExists('trackers');
     }
 };
