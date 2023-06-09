@@ -9,8 +9,12 @@
 </head>
 <body>
     <x-navbar/>
-    <div class="grid grid-cols-3 gap-4 mt-8 px-4 justify-center md:px-10">
-        <x-blockbox/>
+    <p class="font-sans font-semibold text-gray-800 text-2xl mt-10 ml-4 md:ml-10">Trackers</p>
+    <div class="grid grid-cols-1 gap-4 mt-6 px-4 justify-center md:px-10 md:grid-cols-3">
+
+        @foreach($trackers as $tracker)
+            <x-tracker :tracker="$tracker"/>
+        @endforeach
     </div>
 
     {{-- Register Boat FAB --}}
@@ -42,5 +46,7 @@
     </button>
 
     <x-modal.register :owners="$owners" :boats="$boats"/>
+
+    <script src="{{ asset('/js/tracker.js') }}"></script>
 </body>
 </html>

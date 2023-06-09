@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Owner;
 use App\Models\Boat;
+use App\Models\Tracker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,10 +34,12 @@ class RedirectController extends Controller
 
         $owners = Owner::all();
         $boats = Boat::all();
+        $trackers = Tracker::all();
 
         return view('admin', [
             'owners' => $owners,
-            'boats' => $boats
+            'boats' => $boats,
+            'trackers' => $trackers
         ]);
     }
 }

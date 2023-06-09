@@ -15,6 +15,6 @@ class Tracker extends Model
     ];
 
     public function boat(){
-        return $this->belongsTo(Boat::class, 'boat_id');
+        return $this->belongsTo(Boat::class, 'boat_id')->first();
     }
 }

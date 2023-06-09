@@ -16,6 +16,10 @@ class Boat extends Model
         'color',
     ];
 
+    public function tracker(){
+        return $this->hasOne(Tracker::class, 'boat_id');
+    }
+
     public function owner(){
         return $this->belongsTo(Owner::class, 'owner_id');
     }
