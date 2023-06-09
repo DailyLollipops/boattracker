@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DeleteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,5 @@ Route::post('/register/boat', [RegisterController::class, 'registerBoat']);
 Route::post('/register/account', [RegisterController::class, 'registerAccount']);
 
 Route::post('/register/tracker', [RegisterController::class, 'registerTracker']);
+
+Route::post('/delete/tracker', [DeleteController::class, 'deleteTracker']);

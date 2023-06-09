@@ -4,7 +4,7 @@
             <p class="font-sans font-semibold text-md text-gray-600">Tracker ID: {{ $tracker->id }}</p>
             <div class="flex flex-row justify-end items-center space-x-3">
                 <img src="{{ asset('/images/update.svg') }}" alt="Update" title="Update" class="h-4 cursor-pointer">
-                <img src="{{ asset('/images/delete.svg') }}" alt="Delete" title="Delete" class="h-4 cursor-pointer">
+                <img data-type="tracker" data-id="{{ $tracker->id }}" src="{{ asset('/images/delete.svg') }}" alt="Delete" title="Delete" class="delete h-4 cursor-pointer">
             </div>
         </div>
         <div class="flex flex-col space-y-2">

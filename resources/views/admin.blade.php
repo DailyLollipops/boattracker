@@ -15,7 +15,9 @@
         @foreach($trackers as $tracker)
             <x-tracker :tracker="$tracker"/>
         @endforeach
+
     </div>
+    <x-modal.confirm-delete/>
 
     {{-- Register Boat FAB --}}
     <button id="boat-fab" title="Register Boat" class="fixed z-90 bottom-8 right-9 bg-[#425B71] w-[72px] h-[72px] overflow-clip rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-[#346A90] hover:drop-shadow-2xl">
