@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Owner;
 use App\Models\Boat;
 use App\Models\User;
+use App\Models\Tracker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -111,6 +112,35 @@ class RegisterController extends Controller
 
         $user = User::create($user_form);
         flash()->addSuccess('Personnel successfully registered');
+        return back();
+    }
+
+    public function registerTracker(Request $request){
+        if($request->boat == "null"){
+            $request->merge(['boat' => null]);
+        }
+        $validator = Validator::make($request->all(), [
+            'serial' => 'required',
+            'boat' => 'nullable|exists:boats,id'
+        ],
+        [
+            'serial.required' => 'Please enter tracker serial number',
+            'boat.exist' => 'Boat does not exist'
+        ]);
+        if($validator->fails()){
+            foreach($validator->messages()->all() as $message){
+                flash()->addError($message);
+            }
+            return back()->withInput();
+        }
+
+        $tracker_form = [
+            'serial' => $request->serial,
+            'boat_id' => $request->boat
+        ];
+
+        $tracker = Tracker::create($tracker_form);
+        flash()->addSuccess('Tracker successfully registered');
         return back();
     }
 }

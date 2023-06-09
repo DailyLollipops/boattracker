@@ -31,3 +31,5 @@ Route::post('/register/owner', [RegisterController::class, 'registerOwner']);
 Route::post('/register/boat', [RegisterController::class, 'registerBoat']);
 
 Route::post('/register/account', [RegisterController::class, 'registerAccount']);
+
+Route::post('/register/tracker', [RegisterController::class, 'registerTracker']);

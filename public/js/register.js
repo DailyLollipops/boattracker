@@ -218,3 +218,51 @@ registerAccountSubmit.addEventListener('click', function(){
     registerAccountNameField.value = toTitleCase(registerAccountNameField.value);
     registerAccountForm.submit();
 });
+
+const registerTrackerFAB = document.getElementById('tracker-fab');
+const registerTrackerOverlay = document.getElementById('register-tracker-overlay');
+const registerTrackerModal = document.getElementById('register-tracker');
+const registerTrackerExitButton = document.getElementById('register-tracker-exit');
+const registerTrackerForm = document.getElementById('register-tracker-form');
+const registerTrackerSerialField = document.getElementById('register-tracker-serial');
+const registerTrackerBoatField = document.getElementById('register-tracker-boat');
+const registerTrackerSubmit = document.getElementById('register-tracker-submit');
+const registerTrackerCancel = document.getElementById('register-tracker-cancel');
+
+var registerTrackerModalOpened = false;
+function openRegisterTrackerModal(){
+    if(!registerTrackerModalOpened){
+        registerTrackerOverlay.classList.remove('hidden');
+        registerTrackerModal.classList.remove('hidden');
+        registerTrackerModalOpened = true;
+    }
+}
+
+function closeRegisterTrackerModal(){
+    if(registerTrackerModalOpened){
+        registerTrackerModal.classList.add('hidden');
+        registerTrackerOverlay.classList.add('hidden');
+        registerTrackerModalOpened = false;    
+    }
+}
+
+registerTrackerFAB.addEventListener('click', openRegisterTrackerModal);
+registerTrackerExitButton.addEventListener('click', closeRegisterTrackerModal);
+registerTrackerOverlay.addEventListener('click',closeRegisterTrackerModal);
+window.addEventListener('keydown', function(event){
+    if(event.key == 'Escape'){
+        closeRegisterTrackerModal();
+    }
+});
+registerTrackerCancel.addEventListener('click',closeRegisterTrackerModal);
+
+registerTrackerSubmit.addEventListener('click', function(){
+    if(registerTrackerSerialField.value < 0){
+        alert('Please enter tracker serial number');
+        return;
+    }
+
+    registerTrackerSubmit.disabled = true;
+    registerTrackerSerialField.value = registerTrackerSerialField.value.toUpperCase();
+    registerTrackerForm.submit();
+});
