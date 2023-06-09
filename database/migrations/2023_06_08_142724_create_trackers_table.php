@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('trackers', function (Blueprint $table) {
             $table->id();
-            $table->string('serial');
+            $table->string('serial')->unique();
             $table->foreignID('boat_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });

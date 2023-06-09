@@ -120,12 +120,14 @@ class RegisterController extends Controller
             $request->merge(['boat' => null]);
         }
         $validator = Validator::make($request->all(), [
-            'serial' => 'required',
-            'boat' => 'nullable|exists:boats,id'
+            'serial' => 'required|unique:trackers,serial',
+            'boat' => 'nullable|exists:boats,id|unique:trackers,boat_id'
         ],
         [
             'serial.required' => 'Please enter tracker serial number',
-            'boat.exist' => 'Boat does not exist'
+            'serial.unique' => 'Tracker is already registered',
+            'boat.exist' => 'Boat does not exist',
+            'boat.unique' => 'A tracker is already attached to the selected boat'
         ]);
         if($validator->fails()){
             foreach($validator->messages()->all() as $message){
