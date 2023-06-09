@@ -7,6 +7,14 @@ function toTitleCase(str) {
     );
 }
 
+const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
 const registerOwnerOverlay = document.getElementById('register-owner-overlay');
 const registerOwnerModal = document.getElementById('register-owner');
 const registerOwnerExitButton = document.getElementById('register-owner-exit');
@@ -146,4 +154,67 @@ registerOwnerButton.addEventListener('click', function(){
 registerBoatButton.addEventListener('click', function(){
     closeRegisterOwnerModal();
     openRegisterBoatModal();
+});
+
+
+const registerAccountFAB = document.getElementById('account-fab');
+const registerAccountOverlay = document.getElementById('register-account-overlay');
+const registerAccountModal = document.getElementById('register-account');
+const registerAccountExitButton = document.getElementById('register-account-exit');
+const registerAccountForm = document.getElementById('register-account-form');
+const registerAccountNameField = document.getElementById('register-account-name');
+const registerAccountEmailField = document.getElementById('register-account-email');
+const registerAccountPasswordField = document.getElementById('register-account-password');
+const registerAccountPasswordConfirmField = document.getElementById('register-account-password-confirm');
+const registerAccountSubmit = document.getElementById('register-account-submit');
+const registerAccountCancel = document.getElementById('register-account-cancel');
+
+var registerAccountModalOpened = false;
+function openRegisterAccountModal(){
+    if(!registerAccountModalOpened){
+        registerAccountOverlay.classList.remove('hidden');
+        registerAccountModal.classList.remove('hidden');
+        registerAccountModalOpened = true;
+    }
+}
+
+function closeRegisterAccountModal(){
+    if(registerAccountModalOpened){
+        registerAccountModal.classList.add('hidden');
+        registerAccountOverlay.classList.add('hidden');
+        registerAccountModalOpened = false;    
+    }
+}
+
+registerAccountFAB.addEventListener('click', openRegisterAccountModal);
+registerAccountExitButton.addEventListener('click', closeRegisterAccountModal);
+registerAccountOverlay.addEventListener('click',closeRegisterAccountModal);
+window.addEventListener('keydown', function(event){
+    if(event.key == 'Escape'){
+        closeRegisterAccountModal();
+    }
+});
+registerAccountCancel.addEventListener('click',closeRegisterAccountModal);
+
+registerAccountSubmit.addEventListener('click', function(){
+    if(registerAccountNameField.value < 3){
+        alert('Name field should be at least 3 characters');
+        return;
+    }
+    if(!validateEmail(registerAccountEmailField.value)){
+        alert('Email is not valid');
+        return;
+    }
+    if(registerAccountPasswordField.value < 8){
+        alert('Password should be at least 8 characters');
+        return;
+    }
+    if(registerAccountPasswordConfirmField.value != registerAccountPasswordField.value){
+        alert('Passwords do not match');
+        return;
+    }
+
+    registerAccountSubmit.disabled = true;
+    registerAccountNameField.value = toTitleCase(registerAccountNameField.value);
+    registerAccountForm.submit();
 });

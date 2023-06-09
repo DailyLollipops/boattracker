@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Owner;
 use App\Models\Boat;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -75,6 +76,41 @@ class RegisterController extends Controller
 
         $boat = Boat::create($boat_form);
         flash()->addSuccess('Boat successfully registered');
+        return back();
+    }
+
+    public function registerAccount(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+            'password-confirm' => 'required|same:password'
+        ],
+        [
+            'name.required' => 'Personnel name is required',
+            'email.required' => 'Email is required',
+            'email.email' => 'Invalid email format',
+            'email.unique' => 'Email already exist',
+            'password.required' => 'Password is required',
+            'password.min' => 'Password should contain at least 8 characters',
+            'password-confirm.required' => 'Please confirm your password',
+            'password-confirm.same' => 'Passwords do not match'
+        ]);
+        if($validator->fails()){
+            foreach($validator->messages()->all() as $message){
+                flash()->addError($message);
+            }
+            return back()->withInput();
+        }
+
+        $user_form = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ];
+
+        $user = User::create($user_form);
+        flash()->addSuccess('Personnel successfully registered');
         return back();
     }
 }
