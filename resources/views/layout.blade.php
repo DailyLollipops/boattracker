@@ -12,7 +12,7 @@
         <x-sidebar/>
         <div class="flex flex-col w-full">
             <div class="flex flex-row pl-6 pr-12 py-4 justify-between">
-                <button type="button">
+                <button id="menu" type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48" class="fill-gray-800 h-6 w-6">
                         <title>Menu</title>
                         <path d="M120-240v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/>
@@ -33,16 +33,6 @@
             </div>
         </div>
     </div>
-
-    {{-- <p class="font-sans font-semibold text-gray-800 text-2xl mt-10 ml-4 md:ml-10">Trackers</p>
-    <div class="grid grid-cols-1 gap-4 mt-6 px-4 justify-center md:px-10 md:grid-cols-3">
-
-        @foreach($trackers as $tracker)
-            <x-tracker :tracker="$tracker"/>
-        @endforeach
-
-    </div>
-    <x-modal.confirm-delete/> --}}
 
     {{-- Register Boat FAB --}}
     <button id="boat-fab" title="Register Boat" class="fixed z-90 bottom-8 right-9 bg-[#425B71] w-[72px] h-[72px] overflow-clip rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-[#346A90] hover:drop-shadow-2xl">
@@ -75,5 +65,6 @@
     <x-modal.register :owners="$owners" :boats="$boats"/>
 
     <script src="{{ asset('/js/tracker.js') }}"></script>
+    <script src="{{ asset('/js/menu.js') }}"></script>
 </body>
 </html>

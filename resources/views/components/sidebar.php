@@ -1,4 +1,4 @@
-<div class="w-2/5 h-full-screen sticky flex flex-col space-y-1 pt-6 px-5 bg-[#1F2937] md:w-1/5">
+<div id="sidebar" class="w-2/5 h-full-screen sticky flex flex-col space-y-1 pt-6 px-5 bg-[#1F2937] md:w-1/5">
     <p class="p-2 font-sans font-semibold text-white text-md">BOAT TRACKER</p>
     <p class="p-2 font-sans font-normal text-gray-500 text-sm uppercase bg-[#1F2938]">GENERAL</p>
     <a href="/">
