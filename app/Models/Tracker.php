@@ -10,7 +10,8 @@ class Tracker extends Model
     use HasFactory;
 
     protected $fillable = [
-        'serial'
+        'serial',
+        'boat_id'
     ];
 
     public function boat(){
