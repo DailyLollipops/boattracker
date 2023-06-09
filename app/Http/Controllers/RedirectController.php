@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Owner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,20 +18,22 @@ class RedirectController extends Controller
     }
 
     public function redirectToDashboard(){
-        if(Auth::check()){
-            return view('dashboard');
-        }
-        else{
+        if(!Auth::check()){
             return redirect('/');
         }
+        
+        return view('dashboard');
     }
 
     public function redirectToAdmin(){
-        if(Auth::check()){
-            return view('admin');
-        }
-        else{
+        if(!Auth::check()){
             return redirect('/');
         }
+
+        $owners = Owner::all();
+
+        return view('admin', [
+            'owners' => $owners
+        ]);
     }
 }

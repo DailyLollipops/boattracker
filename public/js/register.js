@@ -1,7 +1,16 @@
+function toTitleCase(str) {
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
+}
+
 const registerOwnerOverlay = document.getElementById('register-owner-overlay');
 const registerOwnerModal = document.getElementById('register-owner');
 const registerOwnerExitButton = document.getElementById('register-owner-exit');
-const registerOwnerForm = document.getElementById('register-boat-form');
+const registerOwnerForm = document.getElementById('register-owner-form');
 const registerOwnerNameField = document.getElementById('register-owner-name');
 const registerOwnerContactField = document.getElementById('register-owner-contact');
 const registerOwnerBarangayField = document.getElementById('register-owner-barangay');
@@ -43,12 +52,17 @@ registerOwnerSubmit.addEventListener('click', function(){
         alert('Please enter owner contact');
         return;
     }
+    if(!(/^(09)\d{9}$/.test(registerOwnerContactField.value))){
+        alert('Please enter a valid contact number\nShould contain 11 digit starting with "09"');
+        return;
+    }
     if(registerOwnerBarangayField.value == 'null'){
         alert('Please select barangay');
         return;
     }
     registerOwnerSubmit.disabled = true;
-    registerOwnerForm.submit()
+    registerOwnerNameField.value = toTitleCase(registerOwnerNameField.value);
+    registerOwnerForm.submit();
 });
 
 
@@ -115,6 +129,8 @@ registerBoatSubmit.addEventListener('click', function(){
         return;
     }
     registerBoatSubmit.disabled = true;
+    registerBoatNameField.value = toTitleCase(registerBoatNameField.value);
+    registerBoatLicenseField.value = registerBoatLicenseField.value.toUpperCase();
     registerBoatForm.submit()
 });
 

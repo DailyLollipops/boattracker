@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,6 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/logout', [LoginController::class, 'logout']);
 
+Route::post('/register/owner', [RegisterController::class, 'registerOwner']);
+
+Route::post('/register/boat', [RegisterController::class, 'registerBoat']);
