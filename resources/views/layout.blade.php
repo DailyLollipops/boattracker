@@ -64,7 +64,6 @@
 
     <x-modal.register :owners="$owners" :boats="$boats"/>
 
-    <script src="{{ asset('/js/tracker.js') }}"></script>
     <script src="{{ asset('/js/menu.js') }}"></script>
 </body>
 </html>

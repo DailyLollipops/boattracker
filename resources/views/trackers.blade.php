@@ -12,4 +12,7 @@
 
         <x-modal.confirm-delete :type="'tracker'"/>
     </div>
+
+    <script src="{{ asset('/js/tracker.js') }}"></script>
+    
 @endsection
