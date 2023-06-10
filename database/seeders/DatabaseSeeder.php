@@ -19,5 +19,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@boattracker.online',
             'password' => bcrypt('password')
         ]);
+
+        \App\Models\Setting::factory()->create([
+            'contact' => '09561506104'
+        ]);
     }
 }
