@@ -120,6 +120,7 @@ window.addEventListener('click', function(event){
 });
 
 confirmDeleteButton.addEventListener('click', function(){
+    confirmDeleteButton.disabled = true;
     deletedIdField.value = activeCardId;
     deleteForm.submit();
 });
