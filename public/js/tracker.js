@@ -80,6 +80,7 @@ function closeUpdateTrackerModal(){
 
 updateTrackerOverlay.addEventListener('click', closeUpdateTrackerModal);
 updateTrackerExit.addEventListener('click', closeUpdateTrackerModal);
+updateTrackerCancel.addEventListener('click', closeUpdateTrackerModal);
 window.addEventListener('keydown', function(event){
     if(event.key == 'Escape'){
         closeUpdateTrackerModal();
