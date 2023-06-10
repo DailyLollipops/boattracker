@@ -25,6 +25,8 @@ Route::get('/dashboard', [RedirectController::class, 'redirectToDashboard']);
 
 Route::get('/trackers', [RedirectController::class, 'redirectToTrackers']);
 
+Route::get('/boats', [RedirectController::class, 'redirectToBoats']);
+
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/logout', [LoginController::class, 'logout']);
@@ -39,6 +41,12 @@ Route::post('/register/tracker', [RegisterController::class, 'registerTracker'])
 
 Route::post('/delete/tracker', [DeleteController::class, 'deleteTracker']);
 
+Route::post('/delete/boat', [DeleteController::class, 'deleteBoat']);
+
 Route::get('/get/tracker', [FetchController::class, 'getTracker']);
 
+Route::get('/get/boat', [FetchController::class, 'getBoat']);
+
 Route::post('/update/tracker', [UpdateController::class, 'updateTracker']);
+
+Route::post('/update/boat', [UpdateController::class, 'updateBoat']);

@@ -48,4 +48,18 @@ class RedirectController extends Controller
             'trackers' => $trackers
         ]);
     }
+
+    public function redirectToBoats(){
+        if(!Auth::check()){
+            return redirect('/');
+        }
+        
+        $owners = Owner::all();
+        $boats = Boat::all();
+        
+        return view('boats', [
+            'owners' => $owners,
+            'boats' => $boats
+        ]);
+    }
 }

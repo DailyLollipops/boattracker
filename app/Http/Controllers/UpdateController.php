@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tracker;
+use App\Models\Boat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class UpdateController extends Controller
 {
     public function updateTracker(Request $request){
-
         $validator = Validator::make($request->all(), [
             'id' => 'required|exists:trackers,id',
             'serial' => 'required',
@@ -54,6 +54,45 @@ class UpdateController extends Controller
         $tracker->boat_id = $request->boat;
         $tracker->save();
         flash()->addSuccess('Tracker info updated successfully');
+        return back();
+    }
+
+    public function updateBoat(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:boats,id',
+            'name' => 'required',
+            'license' => 'required',
+            'type' => 'required|different:null',
+            'color' => 'required|different:null',
+            'owner' => 'required|different:null',
+        ],
+        [
+            'id.required' => 'ID is required',
+            'id.exists' => 'ID does not exists',
+            'name.required' => 'Boat name field is required',
+            'license.required' => 'Boat license field is required',
+            'type.required' => 'Boat type field is required',
+            'type.different' => 'Select boat type',
+            'color.required' => 'Boat color field is required',
+            'color.different' => 'Select boat color',
+            'owner.required' => 'Boat owner is required',
+            'owner.different' => 'Select boat owner'
+        ]);
+        if($validator->fails()){
+            foreach($validator->messages()->all() as $message){
+                flash()->addError($message);
+            }
+            return back()->withInput();
+        }
+
+        $boat = Boat::find($request->id);
+        $boat->name = $request->name;
+        $boat->license = $request->license;
+        $boat->type = $request->type;
+        $boat->color = $request->color;
+        $boat->owner_id = $request->owner;
+        $boat->save();
+        flash()->addSuccess('Boat updated successfully');
         return back();
     }
 }
