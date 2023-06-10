@@ -66,6 +66,7 @@
     <x-modal.register :owners="$owners" :boats="$boats"/>
 
     
+    <x-modal.update-phone/>
     <script src="{{ asset('/js/menu.js') }}"></script>
 </body>
 </html>

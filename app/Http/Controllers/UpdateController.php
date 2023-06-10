@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tracker;
 use App\Models\Boat;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -93,6 +94,28 @@ class UpdateController extends Controller
         $boat->owner_id = $request->owner;
         $boat->save();
         flash()->addSuccess('Boat updated successfully');
+        return back();
+    }
+
+    public function updateContact(Request $request){
+        $validator = Validator::make($request->all(), [
+            'contact' => 'required|regex:/^(09)\d{9}$/'
+        ],
+        [
+            'contact.required' => 'Contact no. is required',
+            'contact.regex' => 'Invalid contact number format'
+        ]);
+        if($validator->fails()){
+            foreach($validator->messages()->all() as $message){
+                flash()->addError($message);
+            }
+            return back()->withInput();
+        }
+
+        $setting = Setting::first();
+        $setting->contact = $request->contact;
+        $setting->save();
+        flash()->addSuccess('Emergency contact number successfully changed');
         return back();
     }
 }

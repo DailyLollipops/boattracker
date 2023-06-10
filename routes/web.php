@@ -47,6 +47,10 @@ Route::get('/get/tracker', [FetchController::class, 'getTracker']);
 
 Route::get('/get/boat', [FetchController::class, 'getBoat']);
 
+Route::get('/get/contact', [FetchController::class, 'getContact']);
+
 Route::post('/update/tracker', [UpdateController::class, 'updateTracker']);
 
 Route::post('/update/boat', [UpdateController::class, 'updateBoat']);
+
+Route::post('/update/contact', [UpdateController::class, 'updateContact']);

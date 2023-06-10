@@ -43,7 +43,7 @@
         </div>            
     </a>
     <p class="p-2 font-sans font-normal text-gray-500 text-sm uppercase bg-[#1F2938]">TOOLS</p>
-    <button type="button">
+    <button id="update-contact-button" type="button">
         <div class="group p-2 flex flex-row space-x-3 cursor-pointer hover:bg-[#374151]">
             <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48" class="fill-white h-5 w-5">
                 <path d="M306-523q17 0 28.5-11.5T346-563q0-17-11.5-28.5T306-603q-17 0-28.5 11.5T266-563q0 17 11.5 28.5T306-523Zm177 0q17 0 28.5-11.5T523-563q0-17-11.5-28.5T483-603q-17 0-28.5 11.5T443-563q0 17 11.5 28.5T483-523Zm170 0q17 0 28.5-11.5T693-563q0-17-11.5-28.5T653-603q-17 0-28.5 11.5T613-563q0 17 11.5 28.5T653-523ZM80-80v-740q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18H240L80-80Zm134-220h606v-520H140v600l74-80Zm-74 0v-520 520Z"/>
