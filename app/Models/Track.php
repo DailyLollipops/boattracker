@@ -11,8 +11,7 @@ class Track extends Model
     protected $fillable = [
         'latitude',
         'longitude',
-        'restricted',
-        'warning'
+        'status'
     ];
 
     public function boat(){

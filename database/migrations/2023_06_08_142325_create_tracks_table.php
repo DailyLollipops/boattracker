@@ -18,8 +18,7 @@ return new class extends Migration
             $table->foreignID('boat_id')->constrained()->onDelete('cascade');
             $table->float('latitude', 12, 6);
             $table->float('longitude', 12, 6);
-            $table->boolean('restricted')->nullable();
-            $table->boolean('warning')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

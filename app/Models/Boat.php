@@ -29,6 +29,6 @@ class Boat extends Model
     }
 
     public function getLatestTrack(){
-        return $this->tracks()->latest()->first();
+        return $this->tracks->latest()->first();
     }
 }
