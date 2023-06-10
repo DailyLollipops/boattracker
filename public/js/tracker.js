@@ -108,6 +108,16 @@ for(let i = 0; i < trackers.length; i++){
     });
 }
 
+const bubbles = document.querySelectorAll('.boat-info');
+const infoButtons = document.querySelectorAll('.show-info');
+window.addEventListener('click', function(event){
+    for(let i = 0; i < bubbles.length; i++){
+        if(!event.composedPath().includes(bubbles[i]) && !event.composedPath().includes(infoButtons[i])){
+            bubbles[i].classList.add('hidden');
+        }
+    }
+});
+
 confirmDeleteButton.addEventListener('click', function(){
     deletedIdField.value = activeCardId;
     deleteForm.submit();
