@@ -25,6 +25,11 @@
         </div>
         <div class="flex">
             <p class="font-sans font-medium text-sm text-gray-400">
+                License: <span class="text-gray-600">{{ $boat->license }}</span>
+            </p>
+        </div>
+        <div class="flex">
+            <p class="font-sans font-medium text-sm text-gray-400">
                 Type: <span class="text-gray-600">{{ $boat->type }}</span>
             </p>
         </div>
