@@ -5,7 +5,7 @@
         <div class="grid grid-cols-1 gap-4 mt-8 md:grid-cols-3">
 
             @foreach ($trackers as $tracker)
-                <x-tracker :tracker="$tracker"/>
+                <x-card.tracker :tracker="$tracker"/>
             @endforeach
     
         </div>

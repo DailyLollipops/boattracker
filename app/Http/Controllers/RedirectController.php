@@ -41,7 +41,7 @@ class RedirectController extends Controller
         $owners = Owner::all();
         $boats = Boat::all();
         $trackers = Tracker::all();
-
+        
         return view('trackers', [
             'owners' => $owners,
             'boats' => $boats,
