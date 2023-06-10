@@ -32,7 +32,7 @@
                 <p class="font-sans font-normal text-sm text-gray-600">Type: {{ $tracker->boat->type }}</p>
                 <p class="font-sans font-normal text-sm text-gray-600">Color: {{ $tracker->boat->color }}</p>
             @else
-                <p class="font-sans font-medium text-md text-gray-600">Not attached to any boat</p>
+                <p class="font-sans font-normal text-md text-gray-600">Not attached to any boat</p>
             @endif
 
         </div>
