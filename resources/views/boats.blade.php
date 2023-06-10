@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="overflow-y-scroll md:h-[600px]">
-        <div class="grid grid-cols-1 gap-3 mt-8 md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
     
             @foreach($boats as $boat)
                 <x-card.boat :boat="$boat"/>
