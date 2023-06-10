@@ -26,10 +26,10 @@
         <div id="tracker-{{ $tracker->id }}-info" class="boat-info hidden absolute top-36 right-0 z-10 flex flex-col space-y-2 p-2 border border-gray-200 bg-white rounded-md">
             
             @if($tracker->boat())
-                <p class="font-sans font-medium text-md text-gray-600">Boat ID: 1</p>
-                <p class="font-sans font-normal text-sm text-gray-600">Name: Montenegro</p>
-                <p class="font-sans font-normal text-sm text-gray-600">Type: Big</p>
-                <p class="font-sans font-normal text-sm text-gray-600">Color: Red</p>
+                <p class="font-sans font-medium text-md text-gray-600">Boat ID: {{ $tracker->boat->id }}</p>
+                <p class="font-sans font-normal text-sm text-gray-600">Name: {{ $tracker->boat->name }}</p>
+                <p class="font-sans font-normal text-sm text-gray-600">Type: {{ $tracker->boat->type }}</p>
+                <p class="font-sans font-normal text-sm text-gray-600">Color: {{ $tracker->boat->color }}</p>
             @else
                 <p class="font-sans font-medium text-md text-gray-600">Not attached to any boat</p>
             @endif
