@@ -19,7 +19,7 @@
         </div>
         <div class="flex flex-row justify-between items-center">
             <p class="font-sans font-medium text-sm text-gray-400">
-                Attached To: <span class="text-gray-600">{{ $tracker->boat() ? 'Boat ID '.$tracker->boat()->id : 'None' }}</span>
+                Attached To: <span class="text-gray-600">{{ $tracker->boat ? 'Boat ID '.$tracker->boat->id : 'None' }}</span>
             </p>
             <img id="tracker-{{ $tracker->id }}-show-info" src="{{ asset('/images/info.svg') }}" alt="More info" title="More info" class="show-info h-4 cursor-pointer">
         </div>
