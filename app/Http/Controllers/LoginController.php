@@ -15,7 +15,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials, $request->get('remember'))) {
             $request->session()->regenerate();
- 
+            flash()->addSuccess('Login successfully');
             return redirect()->intended('dashboard');
         }
 
@@ -27,6 +27,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        flash()->addSuccess('Logout successfully');
         return redirect('/');
     }
 }
