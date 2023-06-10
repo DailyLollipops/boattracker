@@ -3,7 +3,7 @@
 @section('content')
     <x-search class="mt-6"/>
     <div class="flex flex-row space-x-2 mt-2 items-end pb-3 md:h-[500px]">
-        <div id="map" class="flex w-[70%] h-[90%] border border-black rounded-md">
+        <div id="map" class="flex w-[70%] h-[90%] border border-black rounded-md z-10">
 
         </div>
         <div class="flex flex-col w-[30%] h-[90%] overflow-y-scroll">
