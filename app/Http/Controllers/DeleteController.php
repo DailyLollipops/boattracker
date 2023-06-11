@@ -46,8 +46,10 @@ class DeleteController extends Controller
         }
 
         $boat = Boat::find($request->id);
-        $boat->tracker->boat_id = null;
-        $boat->tracker->save();
+        if($boat->tracker != null){
+            $boat->tracker->boat_id = null;
+            $boat->tracker->save();   
+        }
         $boat->delete();
         flash()->addSuccess('Boat successfully deleted');
         return back();

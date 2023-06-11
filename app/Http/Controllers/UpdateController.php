@@ -56,8 +56,10 @@ class UpdateController extends Controller
 
         if($tracker->boat_id != null){
             $boat = Boat::find($tracker->boat_id);
-            $boat->latitude = $tracker->latest_coordinate->latitude;
-            $boat->longitude = $tracker->latest_coordinate->longitude;
+            if($tracker->latest_coordinate != null){
+                $boat->latitude = $tracker->latest_coordinate->latitude;
+                $boat->longitude = $tracker->latest_coordinate->longitude;
+            }
             $boat->save();
         } 
 
