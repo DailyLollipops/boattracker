@@ -38,11 +38,6 @@ class UpdateController extends Controller
             $rules['serial'] = 'unique:trackers,serial';
             $error_messages['serial.unique'] = 'Tracker is already registered';
         }
-        if($tracker->boat_id != $request->boat){
-            $rules['boat'] = 'exists:boats,id|unique:trackers,boat_id';
-            $error_messages['boat.exists'] = 'Boat does not exist';
-            $error_messages['boat.unique'] = 'A tracker is already attached to the selected boat';
-        }
         $validator = Validator::make($request->all(), $rules, $error_messages);
         if($validator->fails()){
             foreach($validator->messages()->all() as $message){
