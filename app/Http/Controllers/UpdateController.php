@@ -38,6 +38,10 @@ class UpdateController extends Controller
             $rules['serial'] = 'unique:trackers,serial';
             $error_messages['serial.unique'] = 'Tracker is already registered';
         }
+        if($tracker->boat_id != $request->boat){
+            $rules['boat'] = 'nullable|unique:trackers,boat_id';
+            $error_messages['boat.unique'] = 'A tracker is already attached to selected boat';
+        }
         $validator = Validator::make($request->all(), $rules, $error_messages);
         if($validator->fails()){
             foreach($validator->messages()->all() as $message){
@@ -49,6 +53,14 @@ class UpdateController extends Controller
         $tracker->serial = $request->serial;
         $tracker->boat_id = $request->boat;
         $tracker->save();
+
+        if($tracker->boat_id != null){
+            $boat = Boat::find($tracker->boat_id);
+            $boat->latitude = $tracker->latest_coordinate->latitude;
+            $boat->longitude = $tracker->latest_coordinate->longitude;
+            $boat->save();
+        } 
+
         flash()->addSuccess('Tracker info updated successfully');
         return back();
     }
