@@ -60,4 +60,33 @@ class APIController extends Controller
 
         return $setting->contact;
     }
+
+    public function getAttachedBoatData(Request $request){
+        $validator = Validator::make($request->all(), [
+            'serial' => 'required|exists:trackers,serial'
+        ],
+        [
+            'serial.required' => 'Tracker serial is required',
+            'serial.exists' => 'Tracker does not exists'
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'response' => 'Failed'
+            ]);
+        }
+        
+        $tracker = Tracker::where('serial', $request->serial)->first();
+        
+        if($tracker->boat == null){
+            return response()->json([
+                'response' => 'Not attached to any boat'
+            ]);
+        }
+        
+        return response()->json([
+            'response' => 'Success',
+            'id' => $tracker->boat->id,
+            'name' => $tracker->boat->name
+        ]);
+    }
 }
