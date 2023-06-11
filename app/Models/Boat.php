@@ -14,6 +14,8 @@ class Boat extends Model
         'license',
         'type',
         'color',
+        'latitude',
+        'longitude'
     ];
 
     public function tracker(){

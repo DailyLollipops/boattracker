@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('license');
             $table->string('type');
             $table->string('color');
+            $table->float('latitude', 12, 6)->nullable();
+            $table->float('longitude', 12, 6)->nullable();
             $table->timestamps();
         });
     }
