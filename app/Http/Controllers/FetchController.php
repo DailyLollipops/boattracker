@@ -7,10 +7,24 @@ use App\Models\Boat;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FetchController extends Controller
 {
     public function getTracker(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:trackers,id'
+        ],
+        [
+            'id.required' => 'ID is required',
+            'id.exists' => 'Tracker not found'
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'tracker' => []
+            ]);
+        }
+
         $tracker = Tracker::where('id',$request->id)->first();
         return response()->json([
             'tracker' => $tracker
@@ -18,6 +32,18 @@ class FetchController extends Controller
     }
 
     public function getBoat(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:boats,id'
+        ],
+        [
+            'id.required' => 'ID is required',
+            'id.exists' => 'Boat not found'
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'boat' => []
+            ]);
+        }
         $boat = Boat::where('id',$request->id)->first();
         return response()->json([
             'boat' => $boat
@@ -44,6 +70,18 @@ class FetchController extends Controller
     }
 
     public function getPersonnel(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:users,id'
+        ],
+        [
+            'id.required' => 'ID is required',
+            'id.exists' => 'Personnel not found'
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'personnel' => []
+            ]);
+        }
         $personnel = User::where('id',$request->id)->first();
         return response()->json([
             'personnel' => $personnel
