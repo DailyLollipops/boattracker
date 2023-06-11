@@ -1,13 +1,17 @@
 @extends('layout',[$title = 'Personnels'])
 
 @section('content')
-<div class="overflow-y-scroll md:h-[600px]">
-    <div class="grid grid-cols-1 gap-4 mt-8 md:grid-cols-3">
+    <div class="overflow-y-scroll md:h-[600px]">
+        <div class="grid grid-cols-1 gap-4 mt-8 md:grid-cols-3">
 
-        @foreach ($personnels as $personnel)
-            <x-card.personnel :personnel="$personnel"/>
-        @endforeach
+            @foreach ($personnels as $personnel)
+                <x-card.personnel :personnel="$personnel"/>
+            @endforeach
+
+        </div>
+
+        <x-modal.confirm-delete :type="'personnel'"/>
 
     </div>
-</div>
+    <script src="{{ asset('/js/personnel.js') }}"></script>
 @endsection

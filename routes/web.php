@@ -46,6 +46,8 @@ Route::post('/delete/tracker', [DeleteController::class, 'deleteTracker']);
 
 Route::post('/delete/boat', [DeleteController::class, 'deleteBoat']);
 
+Route::post('/delete/personnel', [DeleteController::class, 'deletePersonnel']);
+
 Route::get('/get/tracker', [FetchController::class, 'getTracker']);
 
 Route::get('/get/boat', [FetchController::class, 'getBoat']);

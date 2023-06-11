@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tracker;
 use App\Models\Boat;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -52,6 +53,29 @@ class DeleteController extends Controller
         }
         $boat->delete();
         flash()->addSuccess('Boat successfully deleted');
+        return back();
+    }
+
+    public function deletePersonnel(Request $request){
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:users,id|gt:1'
+        ],
+        [
+            'id.required' => 'Id field is required',
+            'id.exist' => 'User ID does not exist',
+            'id.gt' => 'Admin account cannot be deleted'
+        ]);
+        if($validator->fails()){
+            foreach($validator->messages()->all() as $message){
+                flash()->addError($message);
+            }
+            return back()->withInput();
+        }
+
+        $user = User::find($request->id);
+        $user->delete();
+        flash()->addSuccess('Personnel account successfully deleted');
         return back();
     }
 }
