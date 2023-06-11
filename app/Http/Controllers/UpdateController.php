@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tracker;
 use App\Models\Boat;
 use App\Models\Setting;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -125,6 +126,79 @@ class UpdateController extends Controller
         $setting->contact = $request->contact;
         $setting->save();
         flash()->addSuccess('Emergency contact number successfully changed');
+        return back();
+    }
+
+    public function updatePersonnel(Request $request){
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:users,id',
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'password-current' => 'current_password'
+        ],
+        [
+            'id.required' => 'Personnel ID is required',
+            'id.exists' => 'Personnel not found',
+            'name.required' => 'Name is required',
+            'name.min' => 'Name should be at least 3 character',
+            'email.required' => 'Email is required',
+            'email.email' => 'Invalid email format',
+            'password-current.current_password' => 'Password does not match saved password'
+        ]);
+        if($validator->fails()){
+            foreach($validator->messages()->all() as $message){
+                flash()->addError($message);
+            }
+            return back()->withInput();
+        }
+
+        $personnel = User::find($request->id);
+        if($personnel->email != $request->email){
+            $validator = Validator::make($request->all(), [
+                'email' => 'unique:users,email'
+            ],
+            [
+                'email.unique' => 'Email is already registered'
+            ]);
+            if($validator->fails()){
+                foreach($validator->messages()->all() as $message){
+                    flash()->addError($message);
+                }
+                return back()->withInput();
+            }
+        }
+
+        if($request->password != null){
+            $validator = Validator::make($request->all(),[
+                'password' => 'min:8',
+                'password-confirm' => 'required|same:password'
+            ],
+            [
+                'password.min' => 'Password should contain at least 8 characters',
+                'password-confirm.required' => 'Please confirm your password',
+                'password-confirm.same' => 'Passwords do not match'
+            ]);
+            if($validator->fails()){
+                foreach($validator->messages()->all() as $message){
+                    flash()->addError($message);
+                }
+                return back()->withInput();
+            }
+        }
+
+        if($personnel->name != $request->name){
+            $personnel->name = $request->name;
+        }
+        if($personnel->email != $request->email){
+            $personnel->email = $request->email;
+        }
+        if($request->password != null){
+            $personnel->password = bcrypt($request->password);
+        }
+        $personnel->save();
+
+        flash()->addSuccess('Account credentials updated succesfully');
         return back();
     }
 }

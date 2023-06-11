@@ -56,11 +56,15 @@ Route::get('/get/contact', [FetchController::class, 'getContact']);
 
 Route::get('/get/boats', [FetchController::class, 'getBoats']);
 
+Route::get('/get/personnel', [FetchController::class, 'getPersonnel']);
+
 Route::post('/update/tracker', [UpdateController::class, 'updateTracker']);
 
 Route::post('/update/boat', [UpdateController::class, 'updateBoat']);
 
 Route::post('/update/contact', [UpdateController::class, 'updateContact']);
+
+Route::post('/update/personnel', [UpdateController::class, 'updatePersonnel']);
 
 Route::get('/api/update_track', [APIController::class, 'updateTrack']);
 

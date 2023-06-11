@@ -33,7 +33,7 @@
         </span>
     </a>
     
-    @if(Auth::user()->email == 'admin@boattracker.online')
+    @if(Auth::user()->id == 1)
         <a href="/personnels">
             <div class="group p-2 flex flex-row space-x-3 cursor-pointer hover:bg-[#374151]">
                 <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48" class="fill-white h-5 w-5">

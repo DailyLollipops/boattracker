@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tracker;
 use App\Models\Boat;
 use App\Models\Setting;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FetchController extends Controller
@@ -39,6 +40,13 @@ class FetchController extends Controller
 
         return response()->json([
             'data' => $return
+        ]);
+    }
+
+    public function getPersonnel(Request $request){
+        $personnel = User::where('id',$request->id)->first();
+        return response()->json([
+            'personnel' => $personnel
         ]);
     }
 }
