@@ -25,4 +25,8 @@ class Boat extends Model
     public function owner(){
         return $this->belongsTo(Owner::class, 'owner_id');
     }
+
+    public function logs(){
+        return $this->hasMany(Log::class, 'boat_id');
+    }
 }
