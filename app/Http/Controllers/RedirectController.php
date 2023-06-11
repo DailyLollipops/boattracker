@@ -62,4 +62,18 @@ class RedirectController extends Controller
             'boats' => $boats
         ]);
     }
+
+    public function redirectToPersonnels(){
+        if(!Auth::check()){
+            return redirect('/');
+        }
+        
+        $owners = Owner::all();
+        $boats = Boat::all();
+        
+        return view('personnels', [
+            'owners' => $owners,
+            'boats' => $boats
+        ]);
+    }
 }
