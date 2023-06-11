@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Owner;
 use App\Models\Boat;
 use App\Models\Tracker;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -70,10 +71,12 @@ class RedirectController extends Controller
         
         $owners = Owner::all();
         $boats = Boat::all();
+        $personnels = User::all();
         
         return view('personnels', [
             'owners' => $owners,
-            'boats' => $boats
+            'boats' => $boats,
+            'personnels' => $personnels
         ]);
     }
 }
