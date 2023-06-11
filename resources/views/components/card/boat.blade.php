@@ -14,8 +14,16 @@
             <img id="boat-{{ $boat->id }}-show-tracker-info" src="{{ asset('/images/info.svg') }}" alt="More info" title="More info" class="show-tracker-info h-4 cursor-pointer">
         </div>
         <div class="flex">
-            <p class="font-sans font-medium text-sm text-gray-400">
-                Current Location: <span class="text-gray-600">13.2323, 121.908</span>
+            <p class="font-sans font-medium text-sm text-gray-400">Current Location:
+
+                @if($boat->tracker != null)
+                    <span class="text-gray-600">{{ $boat->tracker->latest_coordinate->latitude.', '.$boat->tracker->latest_coordinate->longitude }}</span>
+                @elseif($boat->tracker == null && $boat->latitude != null && $boat->longitude != null)
+                    <span class="text-gray-600">{{ $boat->latitude.', '. $boat->longitude }}</span>
+                @else
+                    <span class="text-gray-600">No tracks yet</span>
+                @endif
+
             </p>
         </div>
         <div class="flex">

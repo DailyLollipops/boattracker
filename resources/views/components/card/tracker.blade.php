@@ -14,7 +14,7 @@
         </div>
         <div class="flex flex-col space-y-2">
             <p class="font-sans font-medium text-sm text-gray-400">
-                Current Location: <span class="text-gray-600">13.2323, 121.908</span>
+                Current Location: <span class="text-gray-600">{{ $tracker->latest_coordinate != null ? $tracker->latest_coordinate->latitude.', '.$tracker->latest_coordinate->longitude : 'No tracks yet'}}</span>
             </p>
         </div>
         <div class="flex flex-row justify-between items-center">
