@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tracks', function (Blueprint $table) {
             $table->id();
-            $table->foreignID('boat_id')->constrained()->onDelete('cascade');
+            $table->foreignID('tracker_id')->constrained()->onDelete('cascade');
             $table->float('latitude', 12, 6);
             $table->float('longitude', 12, 6);
             $table->string('status');

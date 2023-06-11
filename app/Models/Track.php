@@ -9,12 +9,13 @@ class Track extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'tracker_id',
         'latitude',
         'longitude',
         'status'
     ];
 
-    public function boat(){
-        return $this->belongsTo(Boat::class, 'boat_id');
+    public function tracker(){
+        return $this->belongsTo(Tracker::class, 'tracker_id');
     }
 }

@@ -9,6 +9,10 @@ class Tracker extends Model
 {
     use HasFactory;
 
+    protected $appends = [
+        'latest_coordinate'
+    ];
+
     protected $fillable = [
         'serial',
         'boat_id'
@@ -16,5 +20,13 @@ class Tracker extends Model
 
     public function boat(){
         return $this->belongsTo(Boat::class, 'boat_id');
+    }
+
+    public function tracks(){
+        return $this->hasMany(Track::class, 'tracker_id');
+    }
+
+    public function getLatestCoordinateAttribute(){
+        return $this->tracks()->latest()->first();
     }
 }

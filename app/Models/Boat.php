@@ -23,12 +23,4 @@ class Boat extends Model
     public function owner(){
         return $this->belongsTo(Owner::class, 'owner_id');
     }
-
-    public function tracks(){
-        return $this->hasMany(Track::class, 'boat_id');
-    }
-
-    public function getLatestTrack(){
-        return $this->tracks->latest()->first();
-    }
 }
