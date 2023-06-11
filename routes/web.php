@@ -27,6 +27,8 @@ Route::get('/trackers', [RedirectController::class, 'redirectToTrackers']);
 
 Route::get('/boats', [RedirectController::class, 'redirectToBoats']);
 
+Route::get('/personnels', [RedirectController::class, 'redirectToPersonnels']);
+
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/logout', [LoginController::class, 'logout']);
