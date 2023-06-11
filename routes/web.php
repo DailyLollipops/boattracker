@@ -7,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DeleteController;
 use App\Http\Controllers\FetchController;
 use App\Http\Controllers\UpdateController;
+use App\Http\Controllers\APIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,8 +52,13 @@ Route::get('/get/boat', [FetchController::class, 'getBoat']);
 
 Route::get('/get/contact', [FetchController::class, 'getContact']);
 
+Route::get('/get/boats', [FetchController::class, 'getBoats']);
+
 Route::post('/update/tracker', [UpdateController::class, 'updateTracker']);
 
 Route::post('/update/boat', [UpdateController::class, 'updateBoat']);
 
 Route::post('/update/contact', [UpdateController::class, 'updateContact']);
+
+Route::get('/api/update_track', [APIController::class, 'updateTrack']);
+

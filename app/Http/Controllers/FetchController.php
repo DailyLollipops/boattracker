@@ -29,4 +29,16 @@ class FetchController extends Controller
             'contact' => $contact
         ]);
     }
+
+    public function getBoats(){
+        $boats = Boat::with('owner')->with('tracker')->get();
+        $return = array();
+        foreach($boats as $boat){
+            $return[$boat->id] = $boat;
+        }
+
+        return response()->json([
+            'data' => $return
+        ]);
+    }
 }
