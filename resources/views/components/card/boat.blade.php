@@ -16,10 +16,8 @@
         <div class="flex">
             <p class="font-sans font-medium text-sm text-gray-400">Current Location:
 
-                @if($boat->tracker != null)
-                    <span class="text-gray-600">{{ $boat->tracker->latest_coordinate->latitude.', '.$boat->tracker->latest_coordinate->longitude }}</span>
-                @elseif($boat->tracker == null && $boat->latitude != null && $boat->longitude != null)
-                    <span class="text-gray-600">{{ $boat->latitude.', '. $boat->longitude }}</span>
+                @if($boat->latitude != null && $boat->longitude != null)
+                    <span class="text-gray-600">{{ $boat->latitude.', '.$boat->longitude }}</span>
                 @else
                     <span class="text-gray-600">No tracks yet</span>
                 @endif
