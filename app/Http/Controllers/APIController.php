@@ -54,4 +54,10 @@ class APIController extends Controller
             'response' => 'Success'
         ]);
     }
+
+    public function getContact(){
+        $setting = Setting::first();
+
+        return $setting->contact;
+    }
 }

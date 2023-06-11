@@ -62,3 +62,4 @@ Route::post('/update/contact', [UpdateController::class, 'updateContact']);
 
 Route::get('/api/update_track', [APIController::class, 'updateTrack']);
 
+Route::get('/api/get_contact', [APIController::class, 'getContact']);
