@@ -259,7 +259,7 @@ getBoats().then(boats => {
             let latlng = L.latLng(boats[boat]['latitude'], boats[boat]['longitude']);
             let marker = L.marker(latlng)
                 .bindPopup(`
-                    <img src=images/boat.jfif height=130px> 
+                    <img src=images/boat.jfif class="w-full"> 
                     <br>Boat ID: ${boats[boat]['id']}
                     <br>Name: ${boats[boat]['name']}
                     <br>License: ${boats[boat]['license']}
@@ -267,7 +267,8 @@ getBoats().then(boats => {
                     <br>Color: ${boats[boat]['color']}
                     <br>Owner: ${boats[boat]['owner']['name']}
                     <br>Contact No: ${boats[boat]['owner']['contact']}
-                    <br>Address: ${boats[boat]['owner']['barangay']}`)
+                    <br>Address: ${boats[boat]['owner']['barangay']}
+                    <br>Tracker Serial: ${boats[boat]['tracker'] != null ? boats[boat]['tracker']['serial'] : 'None'}`)
                 .bindTooltip(boats[boat]['name'], {direction: 'right'})
             if(boats[boat]['tracker'] != null){
                 marker.setIcon(redIcon).addTo(map)
