@@ -30,6 +30,8 @@ Route::get('/boats', [RedirectController::class, 'redirectToBoats']);
 
 Route::get('/personnels', [RedirectController::class, 'redirectToPersonnels']);
 
+Route::get('/logs', [RedirectController::class, 'redirectToLogs']);
+
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/logout', [LoginController::class, 'logout']);

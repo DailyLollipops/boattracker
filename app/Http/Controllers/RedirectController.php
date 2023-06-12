@@ -79,4 +79,30 @@ class RedirectController extends Controller
             'personnels' => $personnels
         ]);
     }
+
+    public function redirectToLogs(){
+        if(!Auth::check()){
+            return redirect('/');
+        }
+        
+        $owners = Owner::all();
+        $boats = Boat::with('logs')->get();
+        $array = array();
+        foreach($boats as $boat){
+            $previous = null;
+            foreach($boat->logs as $log){
+                if($log->status != $previous){
+                    $previous = $log->status;
+                    array_push($array, $log);
+                }
+            }
+        }
+        $logs = collect($array)->keyBy('created_at')->sortDesc();
+        
+        return view('logs', [
+            'owners' => $owners,
+            'boats' => $boats,
+            'logs' => $logs
+        ]);
+    }
 }
