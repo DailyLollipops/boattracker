@@ -327,11 +327,12 @@ const logsHolder = document.getElementById('logs');
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 function updateLogs(){
     getLogs().then(logs => {
+        console.log(logs)
         logsHolder.innerHTML = '';
         for(let log in logs){
             let date = new Date(logs[log]['created_at'])
             logsHolder.innerHTML += `<p class="font-sans font-semibold text-sm text-gray-800">
-                        ${months[date.getMonth()]} ${date.getDay()}, ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} 
+                        ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes()}:${date.getSeconds()} 
                         <span class="font-normal text-gray-600"> 
                             - ${logs[log]['boat_info'][0]['name']} entered ${logs[log]['status']} zone
                         </span>
