@@ -6,6 +6,7 @@ use App\Models\Boat;
 use App\Models\Tracker;
 use App\Models\Track;
 use App\Models\Setting;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,7 +50,14 @@ class APIController extends Controller
             $boat->latitude = $request->latitude;
             $boat->longitude = $request->longitude;
             $boat->save();
+            
+            $log_form = [
+                'boat_id' => $boat->id,
+                'status' => $request->status
+            ];
+            $log = Log::create($log_form);
         }
+
         return response()->json([
             'response' => 'Success'
         ]);

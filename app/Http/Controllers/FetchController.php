@@ -6,6 +6,7 @@ use App\Models\Tracker;
 use App\Models\Boat;
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -85,6 +86,26 @@ class FetchController extends Controller
         $personnel = User::where('id',$request->id)->first();
         return response()->json([
             'personnel' => $personnel
+        ]);
+    }
+
+    public function getLogs(){
+        $boats = Boat::with('logs')->get();
+        
+        $array = array();
+        foreach($boats as $boat){
+            $previous = null;
+            foreach($boat->logs as $log){
+                if($log->status != $previous){
+                    $previous = $log->status;
+                    array_push($array, $log);
+                }
+            }
+        }
+        $collection = collect($array)->keyBy('created_at')->sortDesc();
+
+        return response()->json([
+            'logs' => $collection
         ]);
     }
 }

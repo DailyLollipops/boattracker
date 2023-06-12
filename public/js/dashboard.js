@@ -16,6 +16,21 @@ async function getBoats(){
     return data['data'];
 }
 
+async function getLogs(){
+    const response = await fetch(
+        '/get/logs',
+        {
+            method: 'GET'
+        }
+    );
+
+    if(!response.ok){
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data['logs'];
+}
 
 var map = L.map('map', {
     center: [13.452718551354815,121.8406105041504],
@@ -267,6 +282,7 @@ getBoats().then(boats => {
 
 function updateMarkers(){
     getBoats().then(boats => {
+        console.log(boats);
         for(let boat in boats){
             if(boat in markers){
                 let latlng = L.latLng(boats[boat]['latitude'], boats[boat]['longitude']);
@@ -306,9 +322,27 @@ function updateMarkers(){
     });
 }
 
+const logsHolder = document.getElementById('logs');
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+function updateLogs(){
+    getLogs().then(logs => {
+        logsHolder.innerHTML = '';
+        for(let log in logs){
+            let date = new Date(logs[log]['created_at'])
+            logsHolder.innerHTML += `<p class="font-sans font-semibold text-sm text-gray-800">
+                        ${months[date.getMonth()]} ${date.getDay()}, ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} 
+                        <span class="font-normal text-gray-600"> 
+                            - ${logs[log]['boat_info'][0]['name']} entered ${logs[log]['status']} zone
+                        </span>
+                    </p>`;
+        }
+    });
+}
+
 setIntervalAsync(() => {
     if(markers.length == 0){
         return;
     }
     updateMarkers();
+    updateLogs();
 }, 1000);
