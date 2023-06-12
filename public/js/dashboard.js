@@ -1,3 +1,9 @@
+/*
+
+    Map functions
+
+*/
+
 var setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync;
 
 async function getBoats(){
@@ -14,22 +20,6 @@ async function getBoats(){
     
     const data = await response.json();
     return data['data'];
-}
-
-async function getLogs(){
-    const response = await fetch(
-        '/get/logs',
-        {
-            method: 'GET'
-        }
-    );
-
-    if(!response.ok){
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    return data['logs'];
 }
 
 var map = L.map('map', {
@@ -250,11 +240,20 @@ var redIcon = new L.Icon({
     shadowSize: [41, 41]
 });
 
+var blueIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
 var markers = [];
+var selectedMarker = -1;
 
 getBoats().then(boats => {
     for(let boat in boats){
-        console.log(boats[boat]);
         if(boats[boat]['latitude'] != null && boats[boat]['longitude']){
             let latlng = L.latLng(boats[boat]['latitude'], boats[boat]['longitude']);
             let marker = L.marker(latlng)
@@ -283,16 +282,20 @@ getBoats().then(boats => {
 
 function updateMarkers(){
     getBoats().then(boats => {
-        console.log(boats);
         for(let boat in boats){
             if(boat in markers){
                 let latlng = L.latLng(boats[boat]['latitude'], boats[boat]['longitude']);
                 markers[boat].setLatLng(latlng);
-                if(boats[boat]['tracker'] != null){
-                    markers[boat].setIcon(redIcon);
+                if(boat != selectedMarker){
+                    if(boats[boat]['tracker'] != null){
+                        markers[boat].setIcon(redIcon);
+                    }
+                    else{
+                        markers[boat].setIcon(greyIcon);
+                    }
                 }
                 else{
-                    markers[boat].setIcon(greyIcon);
+                    markers[boat].setIcon(blueIcon);
                 }
             }
             else{
@@ -323,11 +326,42 @@ function updateMarkers(){
     });
 }
 
+setIntervalAsync(() => {
+    if(markers.length == 0){
+        return;
+    }
+    updateMarkers();
+    updateLogs();
+}, 1000);
+
+
+/*
+
+    Log functions
+
+*/
+
 const logsHolder = document.getElementById('logs');
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+async function getLogs(){
+    const response = await fetch(
+        '/get/logs',
+        {
+            method: 'GET'
+        }
+    );
+
+    if(!response.ok){
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data['logs'];
+}
+
 function updateLogs(){
     getLogs().then(logs => {
-        console.log(logs)
         logsHolder.innerHTML = '';
         for(let log in logs){
             let date = new Date(logs[log]['created_at'])
@@ -341,10 +375,179 @@ function updateLogs(){
     });
 }
 
-setIntervalAsync(() => {
-    if(markers.length == 0){
-        return;
+/*
+
+    Search functions
+
+*/
+
+const searchInput = document.getElementById('search-input');
+const searchMenuButton = document.getElementById('search-menu-button');
+const searchMenu = document.getElementById('search-menu');
+const searchByBoatNameButton = document.getElementById('search-by-boat-name-button');
+const searchByBoatIDButton = document.getElementById('search-by-boat-id-button');
+const searchByBoatLicenseButton = document.getElementById('search-by-boat-license-button');
+const searchResultsHolder = document.getElementById('search-results-holder');
+var searchFilter = 'name';
+
+function toTitleCase(str) {
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
+}
+
+searchMenuButton.addEventListener('click', function(){
+    if(searchMenu.classList.contains('hidden')){
+        searchMenu.classList.remove('hidden');
     }
-    updateMarkers();
-    updateLogs();
-}, 1000);
+    else{
+        searchMenu.classList.add('hidden');
+    }
+});
+
+window.addEventListener('keydown', function(event){
+    if(event.key == 'Escape'){
+        if(!searchMenu.classList.contains('hidden')){
+            searchMenu.classList.add('hidden');
+        }
+    }
+});
+window.addEventListener('click', function(event){
+    if(!event.composedPath().includes(searchMenu) && !event.composedPath().includes(searchMenuButton)){
+        if(!searchMenu.classList.contains('hidden')){
+            searchMenu.classList.add('hidden');
+        }
+    }
+});
+
+
+function changeSearchFilterLabel(text){
+    innerHTML = `${text}
+        <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>`;
+    searchMenuButton.innerHTML = innerHTML;
+}
+
+searchByBoatNameButton.addEventListener('click', function(){
+    searchFilter = 'name';
+    changeSearchFilterLabel('Boat Name');
+    searchMenu.classList.add('hidden');
+});
+
+searchByBoatIDButton.addEventListener('click', function(){
+    searchFilter = 'id';
+    changeSearchFilterLabel('Boat ID');
+    searchMenu.classList.add('hidden');
+});
+
+searchByBoatLicenseButton.addEventListener('click', function(){
+    searchFilter = 'license';
+    changeSearchFilterLabel('Boat License');
+    searchMenu.classList.add('hidden');
+});
+
+var objects = []
+getBoats().then(boats => {
+    objects = boats;
+});
+
+function trimString(s) {
+    var l=0, r=s.length -1;
+    while(l < s.length && s[l] == ' ') l++;
+    while(r > l && s[r] == ' ') r-=1;
+    return s.substring(l, r+1);
+  }
+  
+function compareObjects(o1, o2) {
+    var k = '';
+    for(k in o1) if(o1[k] != o2[k]) return false;
+    for(k in o2) if(o1[k] != o2[k]) return false;
+    return true;
+}
+  
+function itemExists(haystack, needle) {
+    for(var i=0; i<haystack.length; i++) if(compareObjects(haystack[i], needle)) return true;
+    return false;
+}
+  
+function searchFor(toSearch, filter) {
+    var results = [];
+    toSearch = trimString(toSearch);
+    for(i in objects) {
+        if(objects[i][filter].toString().indexOf(toSearch)!=-1) {
+            if(!itemExists(results, objects[i])) results.push(objects[i]);
+        }
+    }
+    return results;
+}
+
+searchInput.addEventListener('keyup', function(){
+    if(searchResultsHolder.classList.contains('hidden')){
+        searchResultsHolder.classList.remove('hidden');
+    }
+    console.log(searchInput.value.length);
+    if(searchInput.value.length > 0){
+        var searchResults = searchFor(toTitleCase(searchInput.value), searchFilter);
+        console.log(searchResults);
+        searchResultsHolder.innerHTML =`<p class="font-sans font-medium text-md text-gray-800">Search Results</p>`
+        if(searchResults.length > 0){
+            for(let i = 0; i < searchResults.length; i++){
+                let searchResult = document.createElement('button');
+                searchResult.classList.add('group','flex','flex-row','justify-between','items-center','px-2','pt-3','pb-2','bg-[#F8FAFC]','rounded-md','hover:bg-[#0EA5E9]');
+                searchResult.setAttribute('data-id',searchResults[i]['id']);
+                searchResult.innerHTML = `<div class="flex w-7 h-7 items-center justify-center bg-white border border-gray-300 rounded-md font-sans font-normal text-gray-500 text-sm group-hover:bg-[#0EA5E9] group-hover:text-white">
+                        ${searchResults[i]['id']}
+                    </div>
+                    <p class="font-sans font-medium text-base text-gray-700 group-hover:text-white">
+                        ${searchResults[i]['name']}
+                    </p>
+                    <p class="font-sans font-normal text-base text-gray-700 group-hover:text-white">
+                        ${searchResults[i]['license']}
+                    </p>`
+                searchResult.addEventListener('click', function(){
+                    if(searchResults[i]['latitude'] == null || searchResults[i]['longitude'] == null){
+                        alert('Boat has no track record yet');
+                        return;
+                    }
+                    searchInput.value = searchResults[i]['name'];
+                    searchResultsHolder.classList.add('hidden');
+                    let id = this.getAttribute('data-id');
+                    showMarker(id);
+                });
+                searchResultsHolder.appendChild(searchResult);
+            }
+        }
+        else{
+            searchResultsHolder.innerHTML =`
+            <p class="font-sans font-medium text-md text-gray-800">Search Results</p>
+            <p class="font-sans font-medium text-sm text-gray-800">No results</p>
+        `;
+        }
+    }
+    else{
+        selectedMarker = -1;
+        searchResultsHolder.classList.add('hidden');
+    }
+});
+
+function showMarker(id){
+    selectedMarker = id;
+    markers[id].setIcon(blueIcon);
+    let latLngs = markers[id].getLatLng();
+    map.flyTo([latLngs.lat, latLngs.lng], 14, {
+        animate: true,
+        duration: 1.5
+    });
+}
+
+window.addEventListener('click', function(event){
+    if(!event.composedPath().includes(searchResultsHolder) && !event.composedPath().includes(searchInput)){
+        if(!searchResultsHolder.classList.contains('hidden')){
+            searchResultsHolder.classList.add('hidden');
+        }
+    }
+});
