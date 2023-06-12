@@ -15,11 +15,7 @@
                 @foreach($logs as $log)
                     <div class="table-row-group">
                         <div class="table-row font-sans font-medium text-gray-600 text-md">
-<<<<<<< HEAD
                             <div class="table-cell text-left w-1/6 pl-4 py-4">{{date('M-d-Y H:i:s A', strtotime($log->created_at))}}</div>
-=======
-                            <div class="table-cell text-left w-1/6 pl-4 py-4">{{date('M-d-Y H:m:s A', strtotime($log->created_at))}}</div>
->>>>>>> fb7586405f7bb72c18d52c3d95b9b6fb601ce537
                             <div class="table-cell text-left w-1/3 p-4">
 
                                 @if($log->status == 'safe')
