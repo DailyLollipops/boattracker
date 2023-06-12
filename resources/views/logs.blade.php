@@ -41,6 +41,7 @@
                                     <path d="M480-345 240-585l43-43 197 198 197-197 43 43-240 239Z"/>
                                 </svg>
                                 <div id="log-{{ $log->id }}-boat-info" class="boat-info hidden absolute flex top-10 right-8 z-10 flex-col space-y-2 p-2 border border-gray-200 bg-white rounded-md text-left">
+                                    <p class="font-sans font-medium text-sm text-gray-600">Boat ID: {{ $log->boat->id }}</p>
                                     <p class="font-sans font-normal text-sm text-gray-600">Name: {{ $log->boat->name }}</p>
                                     <p class="font-sans font-normal text-sm text-gray-600">License: {{ $log->boat->license }}</p>
                                     <p class="font-sans font-normal text-sm text-gray-600">Type: {{ $log->boat->type }}</p>
