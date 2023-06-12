@@ -98,7 +98,6 @@ class RedirectController extends Controller
             }
         }
         $logs = collect($array)->keyBy('created_at')->sortDesc();
-
         return view('logs', [
             'owners' => $owners,
             'boats' => $boats,
