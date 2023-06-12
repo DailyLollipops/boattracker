@@ -60,7 +60,7 @@
             @endif
 
         </div>
-        <div id="owner-{{ $boat->id }}-info" class="owner-info hidden absolute top-48 right-6 z-10 flex flex-col space-y-2 p-2 border border-gray-200 bg-white rounded-md">
+        <div id="owner-{{ $boat->id }}-info" class="owner-info hidden absolute top-52 right-6 z-10 flex flex-col space-y-2 p-2 border border-gray-200 bg-white rounded-md">
             <p class="font-sans font-normal text-sm text-gray-600">Name: {{ $boat->owner->name }}</p>
             <p class="font-sans font-normal text-sm text-gray-600">Contact: {{ $boat->owner->contact }}</p>
             <p class="font-sans font-normal text-sm text-gray-600">Barangay: {{ $boat->owner->barangay }}</p>
